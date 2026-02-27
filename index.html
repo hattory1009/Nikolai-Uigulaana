@@ -120,7 +120,7 @@
             border: 2px solid #e0c9b0;
         }
 
-        /* ДЕКОР */
+        /* ДЕКОР — ИСПРАВЛЕНО ДЛЯ МОБИЛЬНЫХ */
         .flower-decor {
             position: absolute;
             top: 20px;
@@ -128,6 +128,8 @@
             font-size: 5rem;
             color: rgba(200, 160, 120, 0.1);
             transform: rotate(15deg);
+            pointer-events: none;
+            z-index: 1;
         }
 
         .flower-decor-left {
@@ -137,12 +139,16 @@
             font-size: 5rem;
             color: rgba(200, 160, 120, 0.1);
             transform: rotate(-15deg);
+            pointer-events: none;
+            z-index: 1;
         }
 
-        /* ШАПКА */
+        /* ШАПКА — ПОДНИМАЕМ ВЫШЕ ДЕКОРА */
         .hero {
             text-align: center;
             margin-bottom: 40px;
+            position: relative;
+            z-index: 10;
         }
 
         .names {
@@ -151,6 +157,7 @@
             font-weight: 700;
             color: #4a3a2a;
             margin-bottom: 15px;
+            word-break: break-word;
         }
 
         .names span {
@@ -284,20 +291,6 @@
             margin-bottom: 20px;
         }
 
-        .map-container {
-            margin: 20px 0;
-            border-radius: 30px;
-            overflow: hidden;
-            height: 250px;
-            border: 3px solid #e0c9b0;
-        }
-
-        .map-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
         .map-link {
             display: inline-block;
             margin-top: 15px;
@@ -398,21 +391,61 @@
             font-size: 0.9rem;
         }
 
-        @media (max-width: 600px) {
+        /* ===== ИСПРАВЛЕНИЯ ДЛЯ МОБИЛЬНЫХ ===== */
+        @media (max-width: 768px) {
             .card {
-                padding: 40px 25px;
+                padding: 30px 20px;
+            }
+
+            .flower-decor,
+            .flower-decor-left {
+                font-size: 3.5rem; /* Уменьшаем цветы */
+                opacity: 0.15; /* Делаем ещё прозрачнее */
+            }
+
+            .flower-decor {
+                top: 10px;
+                right: 10px;
+            }
+
+            .flower-decor-left {
+                bottom: 10px;
+                left: 10px;
             }
 
             .names {
-                font-size: 2rem;
+                font-size: 2.2rem;
+                line-height: 1.2;
             }
 
             .names span {
                 font-size: 2.5rem;
             }
 
+            .message {
+                padding: 25px;
+                font-size: 1rem;
+            }
+
+            .timer-section {
+                padding: 30px 20px;
+            }
+
+            .timer-title {
+                font-size: 1.5rem;
+            }
+
+            .timer-item {
+                min-width: 70px;
+                padding: 15px;
+            }
+
+            .timer-number {
+                font-size: 2.2rem;
+            }
+
             .date {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
 
             .time {
@@ -423,16 +456,94 @@
                 font-size: 1.5rem;
             }
 
-            .contact-btn {
-                min-width: 100%;
+            .contacts-section {
+                padding: 30px 20px;
             }
 
-            .envelope-text {
+            .contacts-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 25px 15px;
+            }
+
+            .flower-decor,
+            .flower-decor-left {
+                font-size: 3rem;
+                opacity: 0.1;
+            }
+
+            .names {
                 font-size: 1.8rem;
             }
 
-            .envelope-icon {
-                font-size: 6rem;
+            .names span {
+                font-size: 2.2rem;
+            }
+
+            .event-type {
+                font-size: 0.8rem;
+                letter-spacing: 4px;
+                padding: 6px 15px;
+            }
+
+            .message {
+                padding: 20px;
+                font-size: 0.95rem;
+            }
+
+            .signature {
+                font-size: 1.4rem;
+            }
+
+            .timer-item {
+                min-width: 60px;
+                padding: 12px;
+            }
+
+            .timer-number {
+                font-size: 1.8rem;
+            }
+
+            .timer-label {
+                font-size: 0.7rem;
+            }
+
+            .date {
+                font-size: 1.8rem;
+            }
+
+            .date span {
+                font-size: 1.8rem;
+            }
+
+            .time {
+                font-size: 1rem;
+            }
+
+            .location-name {
+                font-size: 1.3rem;
+            }
+
+            .location-address {
+                font-size: 0.95rem;
+            }
+
+            .contact-btn {
+                min-width: 100%;
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+
+            .contact-phone {
+                font-size: 1.1rem;
+            }
+
+            .footer {
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -501,20 +612,19 @@
                 <div class="time">17:00</div>
             </div>
 
-            <!-- МЕСТО -->
-           <!-- МЕСТО С КАРТОЙ (УПРОЩЁННЫЙ ВАРИАНТ) -->
-        <div class="location">
-            <div class="location-name">Calido Home</div>
-            <div class="location-address">ул. Березовая речка, 9 · Якутск</div>
-            
-            <div style="background: #f0e4d8; border-radius: 30px; padding: 30px; margin: 20px 0; text-align: center;">
-                <div style="font-size: 3rem; margin-bottom: 15px;">📍</div>
-                <p style="margin-bottom: 20px;">Нажмите кнопку, чтобы открыть точный адрес в 2ГИС</p>
-                <a href="https://2gis.ru/yakutsk/firm/70000001096405166?m=129.681677%2C62.064649%2F17.81" class="map-link" target="_blank">
-                    🗺️ открыть в 2ГИС
-                </a>
+            <!-- МЕСТО С КАРТОЙ -->
+            <div class="location">
+                <div class="location-name">Calido Home</div>
+                <div class="location-address">ул. Березовая речка, 9 · Якутск</div>
+
+                <div style="background: #f0e4d8; border-radius: 30px; padding: 30px; margin: 20px 0; text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 15px;">📍</div>
+                    <p style="margin-bottom: 20px;">Нажмите кнопку, чтобы открыть точный адрес в 2ГИС</p>
+                    <a href="https://2gis.ru/yakutsk/firm/70000001096405166?m=129.681677%2C62.064649%2F17.81" class="map-link" target="_blank">
+                        🗺️ открыть в 2ГИС
+                    </a>
+                </div>
             </div>
-        </div>
 
             <!-- КОНТАКТЫ -->
             <div class="contacts-section">
